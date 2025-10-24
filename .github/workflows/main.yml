@@ -39,5 +39,5 @@ jobs:
     - name: Print app name
       env:
        APPLICATION: python
-       run: echo "Application name is $APPLICATION"
+      run: echo "Application name is $APPLICATION"
      
