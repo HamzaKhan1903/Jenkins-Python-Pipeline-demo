@@ -1,0 +1,43 @@
+name: variables in python workflow
+on:
+ push:
+#variables which can be used by any job
+env: 
+ PYTHON_VERSION: 3.9
+jobs:
+ job-workflow-var:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout code
+       uses: actions/checkout@v5
+     - name: Setup python ${{ env.PYTHON_VERSION }}
+       uses: actions/setup-python@v5
+       with:
+        python-version: ${{ env.PYTHON_VERSION }} #using workflow variable
+ job-job-var:
+    runs-on: ubuntu-latest
+    env:
+     job_python_version: 3.8
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v5
+      - name: Setup python ${{ env.job_python_version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.job_python_version }}
+ job-step-var:
+   runs-on: ubuntu-latest
+   steps:
+    - name: Checkout code
+      uses: actions/checkout@v5
+    - name: Setup python using step variable
+      env: 
+       step_python_version: 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.step_python_version }}
+    - name: Print app name
+      env:
+       APPLICATION: python
+       run: echo "Application name is $APPLICATION"
+     
